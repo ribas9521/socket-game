@@ -1,0 +1,27 @@
+version: "3.2"
+
+services:
+  api:
+    build: back/.
+    environment:
+      - BACK_PORT=${BACK_PORT}
+    ports:
+      - "${BACK_PORT}:${BACK_PORT}"
+    volumes:
+      - ./:/usr/src
+    networks:
+      - warlock-network
+    command: sh -c "npm run build  && cd dist && node server.js"
+  front:
+    build: front/.
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    volumes:
+      - ./:/usr/src
+    networks:
+      - warlock-network
+networks:
+  warlock-network:
+    driver: bridge
