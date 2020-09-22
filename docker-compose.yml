@@ -11,7 +11,7 @@ services:
       - ./:/usr/src
     networks:
       - warlock-network
-    command: sh -c "npm run build  && cd dist && node server.js"
+    command: sh -c "npm install && npm run build  && cd dist && node server.js"
   front:
     build: front/.
     ports:
