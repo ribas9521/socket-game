@@ -133,6 +133,15 @@ const Game: React.FC = () => {
         _player.setPosition(player);
       }
     });
+    socket.on("player-movement", (movement: any) => {
+      const _player = findPlayerById(movement.id);
+      if (_player) {
+        if (movement.direction === "right") _player.moveRight();
+        else if (movement.direction === "left") _player.moveLeft();
+        else if (movement.direction === "up") _player.moveUp();
+        else if (movement.direction === "down") _player.moveDown();
+      }
+    });
 
     socket.on("bullet", (bullet: BulletProps) => {
       spawnBullet(bullet);
@@ -144,17 +153,26 @@ const Game: React.FC = () => {
 
     document.addEventListener("keydown", (event) => {
       const _player = findPlayerById(me.label);
+      const movement = { id: me.label, direction: "" };
       if (event.keyCode === 68) {
-        _player?.moveRight();
+        // _player?.moveRight();
+        movement.direction = "right";
+        socket.emit("player-movement", movement);
       }
       if (event.keyCode === 65) {
-        _player?.moveLeft();
+        // _player?.moveLeft();
+        movement.direction = "left";
+        socket.emit("player-movement", movement);
       }
       if (event.keyCode === 87) {
-        _player?.moveUp();
+        // _player?.moveUp();
+        movement.direction = "up";
+        socket.emit("player-movement", movement);
       }
       if (event.keyCode === 83) {
-        _player?.moveDown();
+        // _player?.moveDown();
+        movement.direction = "down";
+        socket.emit("player-movement", movement);
       }
     });
 
@@ -210,7 +228,7 @@ const Game: React.FC = () => {
   };
   useEffect(() => {
     setUpGame();
-    setInterval(updatePosition, 20);
+    setInterval(updatePosition, 200);
   });
 
   return (
