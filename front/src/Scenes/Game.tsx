@@ -6,7 +6,7 @@ import Player from "../Components/Player/Player";
 import Bullet from "../Components/Bullet/Bullet";
 import { BulletProps } from "../Components/Bullet/types";
 // const ENDPOINT = "http://localhost:3333";
-const ENDPOINT = "http://ec2-34-204-90-151.compute-1.amazonaws.com:3333";
+const ENDPOINT = "ec2-18-231-33-197.sa-east-1.compute.amazonaws.com:3333";
 
 const Game: React.FC = () => {
   let playerId = "";
