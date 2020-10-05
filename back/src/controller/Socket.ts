@@ -1,17 +1,18 @@
 import GameController from '../controller/Game'
 import { BulletProps } from '../interface/Bullet'
-import { PlayerProps } from '../interface/Player'
+import { Movement, PlayerProps } from '../interface/Player'
+import { Socket } from 'socket.io'
 
 class SocketControler {
   private gameController: GameController;
   public io: SocketIO.Server;
-  constructor (io: SocketIO.Server) {
+  constructor(io: SocketIO.Server) {
     this.io = io
     this.gameController = new GameController()
   }
 
-  public setEventListeners (): void {
-    this.io.on('connection', (socket: SocketIO.Socket) => {
+  public setEventListeners(): void {
+    this.io.on('connection', (socket: Socket) => {
       const playerId = socket.id
 
       console.log(`> New connection: ${playerId}`)
@@ -33,6 +34,10 @@ class SocketControler {
 
       socket.on('bullet', (bullet: BulletProps) => {
         this.io.emit('bullet', bullet)
+      })
+      socket.on('player-movement', (movement: Movement) => {
+        console.log(movement)
+        this.io.emit('player-movement', movement)
       })
     })
   }

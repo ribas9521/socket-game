@@ -10,5 +10,5 @@ const io = socketio(server)
 const socketController = new SocketControler(io)
 socketController.setEventListeners()
 
-server.listen(process.env.BACK_PORT)
-console.log("running on port " + process.env.BACK_PORT)
+server.listen(3333)
+console.log("running on port " + 3333)
