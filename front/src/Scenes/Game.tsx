@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Matter, { Constraint, Body, Engine } from "matter-js";
 import socketIOClient from "socket.io-client";
-import { PlayerProps } from "../Components/Player/types";
+import { Movement, PlayerProps } from "../Components/Player/types";
 import Player from "../Components/Player/Player";
 import Bullet from "../Components/Bullet/Bullet";
 import { BulletProps } from "../Components/Bullet/types";
@@ -133,7 +133,7 @@ const Game: React.FC = () => {
         _player.setPosition(player);
       }
     });
-    socket.on("player-movement", (movement: any) => {
+    socket.on("player-movement", (movement: Movement) => {
       const _player = findPlayerById(movement.id);
       if (_player) {
         if (movement.direction === "right") _player.moveRight();
