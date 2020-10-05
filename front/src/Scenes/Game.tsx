@@ -229,7 +229,7 @@ const Game: React.FC = () => {
   };
   useEffect(() => {
     setUpGame();
-    setInterval(updatePosition, 200);
+    setInterval(updatePosition, 5000);
   });
 
   return (
